@@ -3,12 +3,6 @@
 #include <forward_list>
 #include <list>
 
-size_t getHash(const std::string& str) {
-
-	return str.size();
-
-}
-
 template<typename Key, typename Value>
 class HashMap {
 
@@ -22,10 +16,10 @@ private:
 
 	double maxLoadFactor = 8;
 
-	size_t getHashCode(const std::string key) const {
-	
-		return getHash(key) % hashTable.size();
-	
+	size_t getHashCode(const Key& key) const {
+
+	return std::hash<Key>{}(key) % hashTable.size();
+
 	}
 
 	void resize() {
@@ -53,13 +47,10 @@ public:
 	
 	}
 
-	void add(const std::string& key, int value) {
+	void add(const Key& key, const Value& value) {
 
-		if (loadFactor() >= maxLoadFactor) {
-		
+		if (loadFactor() >= maxLoadFactor)
 			resize();
-		
-		}
 
 		size_t hashCode = getHashCode(key);
 		auto& bucket = hashTable[hashCode];
@@ -80,7 +71,7 @@ public:
 
 	}
 
-	void remove(const std::string& key) {
+	void remove(const Key& key) {
 
 		size_t hashCode = getHashCode(key);
 
@@ -101,7 +92,7 @@ public:
 
 	}
 
-	int getValue(const std::string& key) const {
+	int getValue(const Key& key) const {
 	
 		size_t hashCode = getHashCode(key);
 
@@ -123,10 +114,10 @@ public:
 	}
 
 	void print() const {
-		
-		for (auto iter = data.begin(); iter != data.end(); iter++)
-			std::cout << iter->first << " " << iter->second << std::endl;
 	
+	for (const auto& iter : data)
+		std::cout << iter.first << " " << iter.second << std::endl;
+
 	}
 
 };
