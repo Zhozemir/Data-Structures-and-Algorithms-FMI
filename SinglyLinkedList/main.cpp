@@ -26,15 +26,4 @@ int main() {
     for (auto it = list.begin(); it != list.end(); ++it) 
         std::cout << *it << ' ';
     
-    // Inserting an element after the first element
-    //auto it = list.begin();
-    //list.insertAfter(42, it);
-    //std::cout << "List after inserting 42 after the first element: ";
-    //list.print();
-
-    //// Removing the element after the first element
-    //list.removeAfter(it);
-    //std::cout << "List after removing the element after the first element: ";
-    //list.print();
-
 }
